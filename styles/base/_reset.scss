@@ -1,0 +1,102 @@
+// CSS Reset
+// Source: https://www.joshwcomeau.com/css/custom-css-reset/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+// html,
+// body,
+// #__next {
+//   height: 100%;
+// }
+
+body {
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  padding-top: env(safe-area-inset-top);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+// Source: https://piccalil.li/blog/a-modern-css-reset/
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// My reset
+a {
+  color: black;
+  display: inline;
+  text-decoration: none;
+}
+
+ol,
+ul {
+  list-style-position: outside;
+  width: 100%;
+}
+
+ul > li {
+  display: list-item;
+  list-style-type: "- ";
+  width: 100%;
+}

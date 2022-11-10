@@ -1,8 +1,9 @@
+import Banner from "./Banner";
+
 export default function Home() {
   return (
     <div className="container">
-      {/* TODO: Banner */}
-      <div className="banner">Banner</div>
+      <Banner />
       {/* TODO: Search bar */}
       <div className="search-bar">Search Bar</div>
       {/* TODO: History */}
