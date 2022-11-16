@@ -1,10 +1,10 @@
-import { ref } from "firebase/database";
-import { useListVals, useObjectVal } from "react-firebase-hooks/database";
-import { database } from "./firebase";
+import { get, ref } from "firebase/database";
+
+import { db } from "./firebase";
 
 type Filename = string;
 type NoteId = string;
-type LinkId = string;
+export type LinkId = string;
 type Tag = string;
 type Hashtag = string;
 type Frontmatter = {
@@ -16,7 +16,7 @@ type Frontmatter = {
   created: string;
   updated: string;
 };
-type Link = { content: string; from: NoteId[]; to: NoteId[] };
+export type Link = { content: string; from: NoteId[]; to: NoteId[] };
 // TODO: Define Token type in details
 type BlankLineToken = { element: "blank_line" };
 type CodeSpanToken = { element: "code_span"; children: string };
@@ -76,55 +76,40 @@ export type Cache = {
   tagToNoteIds: TagToNoteIds;
 };
 
-export const getDocumentTokenRef = (noteId: NoteId) =>
-  ref(database, `noteIdToDocumentToken/${noteId}`);
-export const getFrontmatterRef = (noteId: NoteId) => ref(database, `noteIdToFrontmatter/${noteId}`);
-export const getReadableTextRef = (noteId: NoteId) =>
-  ref(database, `noteIdToReadableText/${noteId}`);
-export const getWikilinskRef = (noteId: NoteId) => ref(database, `noteIdToWikilinks/${noteId}`);
-export const getBacklinksRef = (noteId: NoteId) => ref(database, `noteIdToBacklinks/${noteId}`);
-export const getLinkQuery = () => ref(database, "linkIndex");
-
-export const useNote = (noteId: NoteId) => {
-  const [documentToken, isDocumentTokenLoading, isDocumentTokenError] = useObjectVal<DocumentToken>(
-    getDocumentTokenRef(noteId)
-  );
-  const [frontmatter, isFrontmatterLoading, isFrontmatterError] = useObjectVal<Frontmatter>(
-    getFrontmatterRef(noteId)
-  );
-  const [readableText, isReadableTextLoading, isReadableTextError] = useObjectVal<string>(
-    getReadableTextRef(noteId)
-  );
-  const [wikilinks, isWikilinksLoading, isWikilinksError] = useObjectVal<LinkId[]>(
-    getWikilinskRef(noteId)
-  );
-  const [backlinks, isBacklinksLoading, isBacklinksError] = useObjectVal<LinkId[]>(
-    getBacklinksRef(noteId)
-  );
-  const [links, isLinkLoading, isLinkError] = useListVals<Link[]>(getLinkQuery());
-
-  return {
-    data: {
-      documentToken,
-      frontmatter,
-      readableText,
-      links,
-      wikilinks,
-      backlinks,
-    },
-    isLoading:
-      isDocumentTokenLoading ||
-      isFrontmatterLoading ||
-      isReadableTextLoading ||
-      isWikilinksLoading ||
-      isBacklinksLoading ||
-      isLinkLoading,
-    error:
-      isDocumentTokenError ||
-      isFrontmatterError ||
-      isReadableTextError ||
-      isWikilinksError ||
-      isBacklinksError ||
-      isLinkError,
-  };
+export const getDocumentToken = async (noteId: NoteId): Promise<DocumentToken | undefined> => {
+  const snapshot = await get(ref(db, `noteIdToDocumentToken/${noteId}`));
+  if (snapshot.exists()) {
+    return snapshot.val();
+  }
+};
+export const getFrontmatter = async (noteId: NoteId): Promise<Frontmatter | undefined> => {
+  const snapshot = await get(ref(db, `noteIdToFrontmatter/${noteId}`));
+  if (snapshot.exists()) {
+    return snapshot.val();
+  }
+};
+export const getReadableText = async (noteId: NoteId): Promise<string | undefined> => {
+  const snapshot = await get(ref(db, `noteIdToReadableText/${noteId}`));
+  if (snapshot.exists()) {
+    return snapshot.val();
+  }
+};
+export const getWikilinks = async (noteId: NoteId): Promise<LinkId[] | undefined> => {
+  const snapshot = await get(ref(db, `noteIdToWikilinks/${noteId}`));
+  if (snapshot.exists()) {
+    return snapshot.val();
+  }
+};
+export const getBacklinks = async (noteId: NoteId): Promise<LinkId[] | undefined> => {
+  const snapshot = await get(ref(db, `noteIdToBacklinks/${noteId}`));
+  if (snapshot.exists()) {
+    return snapshot.val();
+  }
+};
+export const getLink = async (linkId: LinkId): Promise<Link | undefined> => {
+  const snapshot = await get(ref(db, "linkIndex")); // TODO: Confirm if this result is cached
+  if (snapshot.exists()) {
+    const linkIndex: LinkIndex = snapshot.val();
+    return linkIndex[linkId];
+  }
 };
