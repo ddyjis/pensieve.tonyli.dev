@@ -7,7 +7,7 @@ export type NoteId = string;
 export type LinkId = string;
 type Tag = string;
 type Hashtag = string;
-type Frontmatter = {
+export type Frontmatter = {
   id: string;
   title: string;
   aliases?: string[];
