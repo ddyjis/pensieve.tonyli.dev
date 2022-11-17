@@ -18,18 +18,21 @@ export type Frontmatter = {
 };
 export type Link = { content: string; from: NoteId; to: NoteId };
 // TODO: Define Token type in details
-type BlankLineToken = { element: "blank_line" };
-type CodeSpanToken = { element: "code_span"; children: string };
-type FencedCodeToken = {
+export type BlankLineToken = { element: "blank_line" };
+export type CodeSpanToken = { element: "code_span"; children: string };
+export type EmphasisToken = { element: "emphasis"; children: ElementToken[] };
+export type FencedCodeToken = {
   element: "fenced_code";
   children: ElementToken | string;
   extra: string;
   lang: string;
 };
 type HeadingToken = { element: "heading"; children: ElementToken[]; level: 1 | 2 | 3 | 4 | 5 | 6 };
-type LinkToken = { element: "link"; dest: string; children: ElementToken[] | string };
-type ListItemToken = { element: "list_item"; children: ElementToken[] };
-type ListToken = {
+export type HtmlBlockToken = { element: "html_block"; children: string };
+export type ImageToken = { element: "image"; children: ElementToken[]; dest: string };
+export type LinkToken = { element: "link"; dest: string; children: ElementToken[] | string };
+export type ListItemToken = { element: "list_item"; children: ElementToken[] };
+export type ListToken = {
   element: "list";
   children: ElementToken[];
   bullet: string;
@@ -37,21 +40,28 @@ type ListToken = {
   start: number;
   tight: boolean;
 };
-type ParagraphToken = { element: "element"; children: ElementToken[] };
-type QuoteToken = { element: "quote"; children: ElementToken[] };
-type RawTextToken = { element: "raw_text"; children: string; escape: boolean };
-type ElementToken =
+export type ParagraphToken = { element: "paragraph"; children: ElementToken[] };
+export type QuoteToken = { element: "quote"; children: ElementToken[] };
+export type RawTextToken = { element: "raw_text"; children: string; escape: boolean };
+export type StrongEmphasisToken = { element: "strong_emphasis"; children: ElementToken[] };
+export type WikilinkToken = { element: "wikilink_element"; dest: string; children: string };
+export type ElementToken =
   | BlankLineToken
   | CodeSpanToken
+  | EmphasisToken
   | FencedCodeToken
   | HeadingToken
+  | HtmlBlockToken
+  | ImageToken
   | LinkToken
   | ListItemToken
   | ListToken
   | ParagraphToken
   | QuoteToken
-  | RawTextToken;
-type DocumentToken = {
+  | RawTextToken
+  | StrongEmphasisToken
+  | WikilinkToken;
+export type DocumentToken = {
   element: "document";
   children: ElementToken[];
 };
@@ -86,6 +96,13 @@ export const getFilename = async (noteId: NoteId): Promise<Filename | undefined>
     if (match) {
       return match[0];
     }
+  }
+};
+
+export const getNoteIdFromFilename = async (filename: Filename): Promise<NoteId | undefined> => {
+  const snapshot = await get(ref(db, `filenameToNoteId/${filename}`));
+  if (snapshot.exists()) {
+    return snapshot.val();
   }
 };
 

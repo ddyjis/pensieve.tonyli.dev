@@ -1,5 +1,3 @@
-import NextLink from "next/link";
-
 import {
   getBacklinkIds,
   getFilename,
@@ -11,6 +9,7 @@ import {
   type NoteId,
 } from "../../utils/cache";
 import Backlinks from "./Backlinks";
+import DocumentToken from "./Token";
 import Frontmatter from "./Frontmatter";
 
 type LinkDetails = Link & { noteTitle: string };
@@ -53,7 +52,9 @@ export default async function Page({ params: { noteId } }: PageProps) {
     <div className="note__wrapper">
       <div className="note">
         <Frontmatter frontmatter={frontmatter} filename={filename} />
-        <div className="note__body">{/* TODO: render documentToken */}</div>
+        <div className="note__body">
+          <DocumentToken token={documentToken} />
+        </div>
         <Backlinks backlinkDetails={backlinkDetails} />
       </div>
     </div>
