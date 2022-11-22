@@ -1,7 +1,4 @@
 import NextLink from "next/link";
-import type { Language } from "prism-react-renderer";
-import Highlight, { defaultProps } from "prism-react-renderer";
-import theme from "prism-react-renderer/themes/duotoneLight";
 
 import type {
   BlankLineToken,
@@ -9,7 +6,6 @@ import type {
   DocumentToken as DocumentTokenType,
   ElementToken,
   EmphasisToken,
-  FencedCodeToken,
   HtmlBlockToken,
   ImageToken,
   LinkToken,
@@ -20,8 +16,9 @@ import type {
   StrongEmphasisToken,
   WikilinkToken,
 } from "../../utils/cache";
+import FencedCode from "./FencedCode";
 
-interface ElementTokenProps<T extends ElementToken> {
+export interface ElementTokenProps<T extends ElementToken> {
   token: T;
 }
 
@@ -44,32 +41,6 @@ const Emphasis = ({ token }: ElementTokenProps<EmphasisToken>) => (
     <Children tokens={token.children} />
   </em>
 );
-// const FencedCode = ({ token }: ElementTokenProps<FencedCodeToken>) => {
-//   const code =
-//     token.children && Array.isArray(token.children)
-//       ? token.children.length > 0 && token.children[0].element === "raw_text"
-//         ? token.children[0].children
-//         : ""
-//       : token.children;
-//   return (
-//     <Highlight {...defaultProps} theme={theme} code={code} language={token.lang as Language}>
-//       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-//         <pre className={className} style={style}>
-//           {tokens.map((line, i) => (
-//             <div key={i} {...getLineProps({ line, key: i })}>
-//               <span className="line-number">{i + 1}</span>
-//               <span className="link-content">
-//                 {line.map((token, key) => (
-//                   <span key={key} {...getTokenProps({ token, key })} />
-//                 ))}
-//               </span>
-//             </div>
-//           ))}
-//         </pre>
-//       )}
-//     </Highlight>
-//   );
-// };
 const HtmlBlock = ({ token }: ElementTokenProps<HtmlBlockToken>) => (
   <div className="html_block" dangerouslySetInnerHTML={{ __html: token.children }}></div>
 );
@@ -141,7 +112,7 @@ function ElementToken({ token }: ElementTokenProps<ElementToken>) {
   } else if (token.element === "emphasis") {
     return <Emphasis token={token} />;
   } else if (token.element === "fenced_code") {
-    // return <FencedCode token={token} />;
+    return <FencedCode token={token} />;
   } else if (token.element === "html_block") {
     return <HtmlBlock token={token} />;
   } else if (token.element === "image") {
