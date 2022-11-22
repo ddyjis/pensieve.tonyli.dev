@@ -1,11 +1,13 @@
 import NextLink from "next/link";
 
 import type {
+  AutoLinkToken,
   BlankLineToken,
   CodeSpanToken,
   DocumentToken as DocumentTokenType,
   ElementToken,
   EmphasisToken,
+  HeadingToken,
   HtmlBlockToken,
   ImageToken,
   LinkToken,
@@ -34,6 +36,11 @@ const Children = ({ tokens }: ChildTokensProps) => (
   </>
 );
 
+const AutoLink = ({ token }: ElementTokenProps<AutoLinkToken>) => (
+  <NextLink href={token.dest} target="_blank">
+    ({token.title}) || (<Children tokens={token.children} />)
+  </NextLink>
+);
 const BlankLine = (_: ElementTokenProps<BlankLineToken>) => null;
 const CodeSpan = ({ token }: ElementTokenProps<CodeSpanToken>) => <code>{token.children}</code>;
 const Emphasis = ({ token }: ElementTokenProps<EmphasisToken>) => (
@@ -41,6 +48,18 @@ const Emphasis = ({ token }: ElementTokenProps<EmphasisToken>) => (
     <Children tokens={token.children} />
   </em>
 );
+const Heading = ({ token }: ElementTokenProps<HeadingToken>) => {
+  const children = token.children.map((childToken, i) => (
+    <ElementToken token={childToken} key={i} />
+  ));
+  return token.level === 1 ? (
+    <h1>{children}</h1>
+  ) : token.level === 2 ? (
+    <h2>{children}</h2>
+  ) : (
+    <h3>{children}</h3>
+  );
+};
 const HtmlBlock = ({ token }: ElementTokenProps<HtmlBlockToken>) => (
   <div className="html_block" dangerouslySetInnerHTML={{ __html: token.children }}></div>
 );
@@ -105,7 +124,9 @@ const UnrecognizedToken = ({ token }: ElementTokenProps<ElementToken>) => {
 };
 
 function ElementToken({ token }: ElementTokenProps<ElementToken>) {
-  if (token.element === "blank_line") {
+  if (token.element === "auto_link") {
+    return <AutoLink token={token} />;
+  } else if (token.element === "blank_line") {
     return <BlankLine token={token} />;
   } else if (token.element === "code_span") {
     return <CodeSpan token={token} />;
@@ -113,6 +134,8 @@ function ElementToken({ token }: ElementTokenProps<ElementToken>) {
     return <Emphasis token={token} />;
   } else if (token.element === "fenced_code") {
     return <FencedCode token={token} />;
+  } else if (token.element === "heading") {
+    return <Heading token={token} />;
   } else if (token.element === "html_block") {
     return <HtmlBlock token={token} />;
   } else if (token.element === "image") {

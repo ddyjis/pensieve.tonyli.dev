@@ -18,6 +18,12 @@ export type Frontmatter = {
 };
 export type Link = { content: string; from: NoteId; to: NoteId };
 // TODO: Define Token type in details
+export type AutoLinkToken = {
+  element: "auto_link";
+  children: ElementToken[];
+  dest: string;
+  title: string;
+};
 export type BlankLineToken = { element: "blank_line" };
 export type CodeSpanToken = { element: "code_span"; children: string };
 export type EmphasisToken = { element: "emphasis"; children: ElementToken[] };
@@ -27,7 +33,11 @@ export type FencedCodeToken = {
   extra: string;
   lang: string;
 };
-type HeadingToken = { element: "heading"; children: ElementToken[]; level: 1 | 2 | 3 | 4 | 5 | 6 };
+export type HeadingToken = {
+  element: "heading";
+  children: ElementToken[];
+  level: 1 | 2 | 3 | 4 | 5 | 6;
+};
 export type HtmlBlockToken = { element: "html_block"; children: string };
 export type ImageToken = { element: "image"; children: ElementToken[]; dest: string };
 export type LinkToken = { element: "link"; dest: string; children: ElementToken[] | string };
@@ -46,6 +56,7 @@ export type RawTextToken = { element: "raw_text"; children: string; escape: bool
 export type StrongEmphasisToken = { element: "strong_emphasis"; children: ElementToken[] };
 export type WikilinkToken = { element: "wikilink_element"; dest: string; children: string };
 export type ElementToken =
+  | AutoLinkToken
   | BlankLineToken
   | CodeSpanToken
   | EmphasisToken
