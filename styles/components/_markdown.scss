@@ -1,0 +1,86 @@
+.markdown {
+    a {
+        & > svg[class$=external-link] {
+            margin-left: 0.25rem;
+            display: inline;
+        }
+
+        &.wikilink {
+            color: var(--theme-primary-color);
+
+            &::before {
+                content: "[[ ";
+            }
+            &::after {
+                content: " ]]";
+            }
+        }
+    }
+
+    blockquote {
+        border-left: 0.25rem solid black;
+        padding: 0.5rem;
+
+        &:has(+.html_block > data) {
+            margin-bottom: 0;
+        }
+
+        & > blockquote {
+            margin: 0.5rem 0.25rem;
+        }
+    }
+
+    div.html_block > data {
+        border-left: 0.25rem solid black;
+        padding: 0.5rem;
+
+        &::after {
+            content: attr(data-source);
+        }
+    }
+
+    em {
+        font-family: var(--font-serif);
+    }
+
+    h1, h2, h3 {
+        font-family: var(--font-serif);
+    }
+
+    pre.prism-code {
+        display: block;
+        margin: 1rem 0;
+        padding: 0.5rem;
+        text-align: left;
+        overflow: scroll;
+        position: relative;
+    
+        div.copy {
+            background-color: var(--theme-primary-color-transparent);
+            position: absolute;
+            right: 0;
+            top: 0;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+            border-radius: 0.25rem;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+    
+        div.token-line {
+            display: table-row;
+        }
+    
+        span.line-number {
+            display: table-cell;
+            text-align: right;
+            padding-right: 1rem;
+            user-select: none;
+            opacity: 0.5;
+        }
+    
+        span.line-content {
+            display: table-cell;
+        }
+      }
+}

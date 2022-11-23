@@ -49,7 +49,7 @@ export default async function Page({ params: { noteId } }: PageProps) {
   if (!documentToken) console.log("documentToken");
   if (!frontmatter || !documentToken) return <p>Loading ...</p>;
   return (
-    <div className="note__wrapper">
+    <div className="note__wrapper container">
       <div className="note">
         <Frontmatter frontmatter={frontmatter} filename={filename} />
         <div className="note__body">

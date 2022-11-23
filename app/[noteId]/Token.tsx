@@ -1,4 +1,5 @@
 import NextLink from "next/link";
+import { ExternalLink } from "lucide-react";
 
 import type {
   AutoLinkToken,
@@ -36,11 +37,15 @@ const Children = ({ tokens }: ChildTokensProps) => (
   </>
 );
 
-const AutoLink = ({ token }: ElementTokenProps<AutoLinkToken>) => (
-  <NextLink href={token.dest} target="_blank">
-    ({token.title}) || (<Children tokens={token.children} />)
-  </NextLink>
-);
+const AutoLink = ({ token }: ElementTokenProps<AutoLinkToken>) => {
+  const isExternal = token.dest.startsWith("http");
+  return (
+    <NextLink href={token.dest} target={isExternal ? "_blank" : "_self"}>
+      {token.title || <Children tokens={token.children} />}
+      {isExternal && <ExternalLink size={16} />}
+    </NextLink>
+  );
+};
 const BlankLine = (_: ElementTokenProps<BlankLineToken>) => null;
 const CodeSpan = ({ token }: ElementTokenProps<CodeSpanToken>) => <code>{token.children}</code>;
 const Emphasis = ({ token }: ElementTokenProps<EmphasisToken>) => (
@@ -70,11 +75,15 @@ const Image = ({ token }: ElementTokenProps<ImageToken>) => {
       : "";
   return <img src={token.dest} alt={altText} />;
 };
-const Link = ({ token }: ElementTokenProps<LinkToken>) => (
-  <NextLink href={token.dest} target="_blank">
-    {Array.isArray(token.children) ? <Children tokens={token.children} /> : token.children}
-  </NextLink>
-);
+const Link = ({ token }: ElementTokenProps<LinkToken>) => {
+  const isExternal = token.dest.startsWith("http");
+  return (
+    <NextLink href={token.dest} target={isExternal ? "_blank" : "_self"}>
+      {Array.isArray(token.children) ? <Children tokens={token.children} /> : token.children}
+      {isExternal && <ExternalLink size={16} />}
+    </NextLink>
+  );
+};
 const List = ({ token }: ElementTokenProps<ListToken>) => {
   if (token.ordered) {
     <OrderedList token={token} />;
@@ -101,10 +110,8 @@ const Quote = ({ token }: ElementTokenProps<QuoteToken>) => (
     <Children tokens={token.children} />
   </blockquote>
 );
-const StrongEmphasis = ({ token }: ElementTokenProps<StrongEmphasisToken>) => (
-  <strong>
-    <em>{<Children tokens={token.children} />}</em>
-  </strong>
+const Strong = ({ token }: ElementTokenProps<StrongEmphasisToken>) => (
+  <strong>{<Children tokens={token.children} />}</strong>
 );
 const UnorderedList = ({ token }: ElementTokenProps<ListToken>) => (
   <ul>
@@ -153,7 +160,7 @@ function ElementToken({ token }: ElementTokenProps<ElementToken>) {
   } else if (token.element === "raw_text") {
     return <>{token.children}</>;
   } else if (token.element === "strong_emphasis") {
-    return <StrongEmphasis token={token} />;
+    return <Strong token={token} />;
   } else if (token.element === "wikilink_element") {
     return <Wikilink token={token} />;
   }
