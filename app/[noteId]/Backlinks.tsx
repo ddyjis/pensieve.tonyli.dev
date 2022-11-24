@@ -1,6 +1,6 @@
-import NextLink from "next/link";
+import NextLink from 'next/link'
 
-import type { BacklinkDetails } from "./page";
+import type { BacklinkDetails } from './page'
 
 interface BacklinksProps {
   backlinkDetails: BacklinkDetails;
@@ -18,9 +18,9 @@ export default function Backlinks({ backlinkDetails }: BacklinksProps) {
                 <div className="note__backlink__content">{content}</div>
               </div>
             </NextLink>
-          );
+          )
         })}
       </div>
     </footer>
-  );
+  )
 }

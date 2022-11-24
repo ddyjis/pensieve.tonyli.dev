@@ -1,5 +1,5 @@
-import NextLink from "next/link";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink } from 'lucide-react'
+import NextLink from 'next/link'
 
 import type {
   AutoLinkToken,
@@ -18,8 +18,8 @@ import type {
   QuoteToken,
   StrongEmphasisToken,
   WikilinkToken,
-} from "../../utils/cache";
-import FencedCode from "./FencedCode";
+} from '../../utils/cache'
+import FencedCode from './FencedCode'
 
 export interface ElementTokenProps<T extends ElementToken> {
   token: T;
@@ -35,136 +35,136 @@ const Children = ({ tokens }: ChildTokensProps) => (
       <ElementToken token={token} key={i} />
     ))}
   </>
-);
+)
 
 const AutoLink = ({ token }: ElementTokenProps<AutoLinkToken>) => {
-  const isExternal = token.dest.startsWith("http");
+  const isExternal = token.dest.startsWith('http')
   return (
-    <NextLink href={token.dest} target={isExternal ? "_blank" : "_self"}>
+    <NextLink href={token.dest} target={isExternal ? '_blank' : '_self'}>
       {token.title || <Children tokens={token.children} />}
       {isExternal && <ExternalLink size={16} />}
     </NextLink>
-  );
-};
-const BlankLine = (_: ElementTokenProps<BlankLineToken>) => null;
-const CodeSpan = ({ token }: ElementTokenProps<CodeSpanToken>) => <code>{token.children}</code>;
+  )
+}
+const BlankLine = (_: ElementTokenProps<BlankLineToken>) => null
+const CodeSpan = ({ token }: ElementTokenProps<CodeSpanToken>) => <code>{token.children}</code>
 const Emphasis = ({ token }: ElementTokenProps<EmphasisToken>) => (
   <em>
     <Children tokens={token.children} />
   </em>
-);
+)
 const Heading = ({ token }: ElementTokenProps<HeadingToken>) => {
   const children = token.children.map((childToken, i) => (
     <ElementToken token={childToken} key={i} />
-  ));
+  ))
   return token.level === 1 ? (
     <h1>{children}</h1>
   ) : token.level === 2 ? (
     <h2>{children}</h2>
   ) : (
     <h3>{children}</h3>
-  );
-};
+  )
+}
 const HtmlBlock = ({ token }: ElementTokenProps<HtmlBlockToken>) => (
   <div className="html_block" dangerouslySetInnerHTML={{ __html: token.children }}></div>
-);
+)
 const Image = ({ token }: ElementTokenProps<ImageToken>) => {
   const altText =
-    token.children && token.children.length === 1 && token.children[0].element === "raw_text"
+    token.children && token.children.length === 1 && token.children[0].element === 'raw_text'
       ? token.children[0].children
-      : "";
-  return <img src={token.dest} alt={altText} />;
-};
+      : ''
+  return <img src={token.dest} alt={altText} />
+}
 const Link = ({ token }: ElementTokenProps<LinkToken>) => {
-  const isExternal = token.dest.startsWith("http");
+  const isExternal = token.dest.startsWith('http')
   return (
-    <NextLink href={token.dest} target={isExternal ? "_blank" : "_self"}>
+    <NextLink href={token.dest} target={isExternal ? '_blank' : '_self'}>
       {Array.isArray(token.children) ? <Children tokens={token.children} /> : token.children}
       {isExternal && <ExternalLink size={16} />}
     </NextLink>
-  );
-};
+  )
+}
 const List = ({ token }: ElementTokenProps<ListToken>) => {
   if (token.ordered) {
-    <OrderedList token={token} />;
+    <OrderedList token={token} />
   }
-  return <UnorderedList token={token} />;
-};
+  return <UnorderedList token={token} />
+}
 const ListItem = ({ token }: ElementTokenProps<ListItemToken>) => (
   <li>
     <Children tokens={token.children} />
   </li>
-);
+)
 const OrderedList = ({ token }: ElementTokenProps<ListToken>) => (
   <ol>
     <Children tokens={token.children} />
   </ol>
-);
+)
 const Paragraph = ({ token }: ElementTokenProps<ParagraphToken>) => (
   <p>
     <Children tokens={token.children} />
   </p>
-);
+)
 const Quote = ({ token }: ElementTokenProps<QuoteToken>) => (
   <blockquote>
     <Children tokens={token.children} />
   </blockquote>
-);
+)
 const Strong = ({ token }: ElementTokenProps<StrongEmphasisToken>) => (
   <strong>{<Children tokens={token.children} />}</strong>
-);
+)
 const UnorderedList = ({ token }: ElementTokenProps<ListToken>) => (
   <ul>
     <Children tokens={token.children} />
   </ul>
-);
+)
 const Wikilink = ({ token }: ElementTokenProps<WikilinkToken>) => (
   <NextLink className="wikilink" href={`/${token.dest}`}>
     {token.children || token.dest}
   </NextLink>
-);
+)
 
 const UnrecognizedToken = ({ token }: ElementTokenProps<ElementToken>) => {
-  console.error("Unrecognized token");
-  console.error(token);
-  return <div className="unrecognized_token">Unrecognized Token</div>;
-};
+  console.error('Unrecognized token')
+  console.error(token)
+  return <div className="unrecognized_token">Unrecognized Token</div>
+}
 
 function ElementToken({ token }: ElementTokenProps<ElementToken>) {
-  if (token.element === "auto_link") {
-    return <AutoLink token={token} />;
-  } else if (token.element === "blank_line") {
-    return <BlankLine token={token} />;
-  } else if (token.element === "code_span") {
-    return <CodeSpan token={token} />;
-  } else if (token.element === "emphasis") {
-    return <Emphasis token={token} />;
-  } else if (token.element === "fenced_code") {
-    return <FencedCode token={token} />;
-  } else if (token.element === "heading") {
-    return <Heading token={token} />;
-  } else if (token.element === "html_block") {
-    return <HtmlBlock token={token} />;
-  } else if (token.element === "image") {
-    return <Image token={token} />;
-  } else if (token.element === "link") {
-    return <Link token={token} />;
-  } else if (token.element === "list") {
-    return <List token={token} />;
-  } else if (token.element === "list_item") {
-    return <ListItem token={token} />;
-  } else if (token.element === "paragraph") {
-    return <Paragraph token={token} />;
-  } else if (token.element === "quote") {
-    return <Quote token={token} />;
-  } else if (token.element === "raw_text") {
-    return <>{token.children}</>;
-  } else if (token.element === "strong_emphasis") {
-    return <Strong token={token} />;
-  } else if (token.element === "wikilink_element") {
-    return <Wikilink token={token} />;
+  if (token.element === 'auto_link') {
+    return <AutoLink token={token} />
+  } else if (token.element === 'blank_line') {
+    return <BlankLine token={token} />
+  } else if (token.element === 'code_span') {
+    return <CodeSpan token={token} />
+  } else if (token.element === 'emphasis') {
+    return <Emphasis token={token} />
+  } else if (token.element === 'fenced_code') {
+    return <FencedCode token={token} />
+  } else if (token.element === 'heading') {
+    return <Heading token={token} />
+  } else if (token.element === 'html_block') {
+    return <HtmlBlock token={token} />
+  } else if (token.element === 'image') {
+    return <Image token={token} />
+  } else if (token.element === 'link') {
+    return <Link token={token} />
+  } else if (token.element === 'list') {
+    return <List token={token} />
+  } else if (token.element === 'list_item') {
+    return <ListItem token={token} />
+  } else if (token.element === 'paragraph') {
+    return <Paragraph token={token} />
+  } else if (token.element === 'quote') {
+    return <Quote token={token} />
+  } else if (token.element === 'raw_text') {
+    return <>{token.children}</>
+  } else if (token.element === 'strong_emphasis') {
+    return <Strong token={token} />
+  } else if (token.element === 'wikilink_element') {
+    return <Wikilink token={token} />
   }
-  return <UnrecognizedToken token={token} />;
+  return <UnrecognizedToken token={token} />
 }
 
 interface DocumentTokenProps {
@@ -178,5 +178,5 @@ export default function DocumentToken({ token: { children } }: DocumentTokenProp
         <ElementToken token={token} key={i} />
       ))}
     </div>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import NextLink from "next/link";
+import NextLink from 'next/link'
 
-import type { Frontmatter as FrontmatterType } from "../../utils/cache";
+import type { Frontmatter as FrontmatterType } from '../../utils/cache'
 
 interface FrontmatterProps {
   frontmatter: FrontmatterType;
@@ -34,5 +34,5 @@ export default function Frontmatter({ frontmatter, filename }: FrontmatterProps)
       <div className="note__create_time">{frontmatter.created}</div>
       <div className="note__update_time">{frontmatter.updated}</div>
     </header>
-  );
+  )
 }

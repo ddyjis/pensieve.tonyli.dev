@@ -1,19 +1,19 @@
-"use client";
+'use client'
 
-import type { Language } from "prism-react-renderer";
-import Highlight, { defaultProps } from "prism-react-renderer";
-import theme from "prism-react-renderer/themes/duotoneLight";
+import type { Language } from 'prism-react-renderer'
+import Highlight, { defaultProps } from 'prism-react-renderer'
+import theme from 'prism-react-renderer/themes/duotoneLight'
 
-import type { FencedCodeToken } from "../../utils/cache";
-import type { ElementTokenProps } from "./Token";
+import type { FencedCodeToken } from '../../utils/cache'
+import type { ElementTokenProps } from './Token'
 
 const FencedCode = ({ token }: ElementTokenProps<FencedCodeToken>) => {
   const code =
     token.children && Array.isArray(token.children)
-      ? token.children.length > 0 && token.children[0].element === "raw_text"
+      ? token.children.length > 0 && token.children[0].element === 'raw_text'
         ? token.children[0].children
-        : ""
-      : token.children;
+        : ''
+      : token.children
   return (
     <Highlight {...defaultProps} theme={theme} code={code} language={token.lang as Language}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
@@ -31,7 +31,7 @@ const FencedCode = ({ token }: ElementTokenProps<FencedCodeToken>) => {
         </pre>
       )}
     </Highlight>
-  );
-};
+  )
+}
 
-export default FencedCode;
+export default FencedCode

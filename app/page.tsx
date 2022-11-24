@@ -1,4 +1,4 @@
-import Banner from "./Banner";
+import Banner from './Banner'
 
 export default function Home() {
   return (
@@ -7,5 +7,5 @@ export default function Home() {
       {/* TODO: History */}
       <div className="history">History</div>
     </div>
-  );
+  )
 }

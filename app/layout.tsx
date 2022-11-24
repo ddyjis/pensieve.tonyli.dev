@@ -1,4 +1,4 @@
-import "../styles/main.scss";
+import '../styles/main.scss'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,5 +9,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>{children}</body>
     </html>
-  );
+  )
 }

@@ -1,41 +1,41 @@
 import {
-  getBacklinkIds,
-  getFilename,
-  getDocumentToken,
-  getFrontmatter,
-  getLink,
   type Link,
   type LinkId,
   type NoteId,
-} from "../../utils/cache";
-import Backlinks from "./Backlinks";
-import DocumentToken from "./Token";
-import Frontmatter from "./Frontmatter";
+  getBacklinkIds,
+  getDocumentToken,
+  getFilename,
+  getFrontmatter,
+  getLink,
+} from '../../utils/cache'
+import Backlinks from './Backlinks'
+import Frontmatter from './Frontmatter'
+import DocumentToken from './Token'
 
 type LinkDetails = Link & { noteTitle: string };
 export type BacklinkDetails = Record<LinkId, LinkDetails>;
 
 const getNoteData = async (noteId: NoteId) => {
-  const frontmatter = await getFrontmatter(noteId);
-  const filename = await getFilename(noteId);
-  const documentToken = await getDocumentToken(noteId);
-  const backlinkIds = await getBacklinkIds(noteId);
-  const backlinkDetails: BacklinkDetails = {};
+  const frontmatter = await getFrontmatter(noteId)
+  const filename = await getFilename(noteId)
+  const documentToken = await getDocumentToken(noteId)
+  const backlinkIds = await getBacklinkIds(noteId)
+  const backlinkDetails: BacklinkDetails = {}
   for (let linkId of backlinkIds || []) {
     if (!backlinkDetails[linkId]) {
-      const link = await getLink(linkId);
+      const link = await getLink(linkId)
       if (!link) {
-        continue;
+        continue
       }
-      const originNoteFrontmatter = await getFrontmatter(link.from);
+      const originNoteFrontmatter = await getFrontmatter(link.from)
       if (!originNoteFrontmatter) {
-        continue;
+        continue
       }
-      backlinkDetails[linkId] = { ...link, noteTitle: originNoteFrontmatter.title };
+      backlinkDetails[linkId] = { ...link, noteTitle: originNoteFrontmatter.title }
     }
   }
-  return { frontmatter, filename, documentToken, backlinkIds, backlinkDetails };
-};
+  return { frontmatter, filename, documentToken, backlinkIds, backlinkDetails }
+}
 
 interface PageProps {
   params: {
@@ -44,10 +44,10 @@ interface PageProps {
 }
 
 export default async function Page({ params: { noteId } }: PageProps) {
-  const { frontmatter, filename, documentToken, backlinkDetails } = await getNoteData(noteId);
-  if (!frontmatter) console.log("frontmatter");
-  if (!documentToken) console.log("documentToken");
-  if (!frontmatter || !documentToken) return <p>Loading ...</p>;
+  const { frontmatter, filename, documentToken, backlinkDetails } = await getNoteData(noteId)
+  if (!frontmatter) console.log('frontmatter')
+  if (!documentToken) console.log('documentToken')
+  if (!frontmatter || !documentToken) return <p>Loading ...</p>
   return (
     <div className="note__wrapper container">
       <div className="note">
@@ -58,5 +58,5 @@ export default async function Page({ params: { noteId } }: PageProps) {
         <Backlinks backlinkDetails={backlinkDetails} />
       </div>
     </div>
-  );
+  )
 }
