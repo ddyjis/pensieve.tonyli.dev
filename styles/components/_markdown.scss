@@ -30,12 +30,18 @@
         }
     }
 
+    div.html_block:has(data) {
+        margin-bottom: 0.25rem;
+    }
+
     div.html_block > data {
         border-left: 0.25rem solid black;
         padding: 0.5rem;
 
         &::after {
             content: attr(data-source);
+            font-family: var(--font-serif);
+            font-style: italic;
         }
     }
 
