@@ -1,9 +1,11 @@
 import NextLink from 'next/link'
 
-import type { BacklinkDetails } from './page'
+import { type Link, type LinkId } from '../utils/cache'
 
+type LinkDetails = Link & { noteTitle: string }
+type BacklinkDetails = Record<LinkId, LinkDetails>
 interface BacklinksProps {
-  backlinkDetails: BacklinkDetails;
+  backlinkDetails: BacklinkDetails
 }
 
 export default function Backlinks({ backlinkDetails }: BacklinksProps) {

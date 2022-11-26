@@ -1,10 +1,10 @@
 import NextLink from 'next/link'
 
-import type { Frontmatter as FrontmatterType } from '../../utils/cache'
+import type { Frontmatter as FrontmatterType } from '../utils/cache'
 
 interface FrontmatterProps {
-  frontmatter: FrontmatterType;
-  filename?: string;
+  frontmatter: FrontmatterType
+  filename?: string
 }
 
 export default function Frontmatter({ frontmatter, filename }: FrontmatterProps) {

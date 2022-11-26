@@ -2,59 +2,59 @@ import { get, ref } from 'firebase/database'
 
 import { db } from './firebase'
 
-type Filename = string;
-export type NoteId = string;
-export type LinkId = string;
-type Tag = string;
-type Hashtag = string;
+type Filename = string
+export type NoteId = string
+export type LinkId = string
+type Tag = string
+type Hashtag = string
 export type Frontmatter = {
-  id: string;
-  title: string;
-  aliases?: string[];
-  tags?: Tag[];
-  hashtags?: Hashtag[];
-  created: string;
-  updated: string;
-};
-export type Link = { content: string; from: NoteId; to: NoteId };
+  id: string
+  title: string
+  aliases?: string[]
+  tags?: Tag[]
+  hashtags?: Hashtag[]
+  created: string
+  updated: string
+}
+export type Link = { content: string; from: NoteId; to: NoteId }
 // TODO: Define Token type in details
 export type AutoLinkToken = {
-  element: 'auto_link';
-  children: ElementToken[];
-  dest: string;
-  title: string;
-};
-export type BlankLineToken = { element: 'blank_line' };
-export type CodeSpanToken = { element: 'code_span'; children: string };
-export type EmphasisToken = { element: 'emphasis'; children: ElementToken[] };
+  element: 'auto_link'
+  children: ElementToken[]
+  dest: string
+  title: string
+}
+export type BlankLineToken = { element: 'blank_line' }
+export type CodeSpanToken = { element: 'code_span'; children: string }
+export type EmphasisToken = { element: 'emphasis'; children: ElementToken[] }
 export type FencedCodeToken = {
-  element: 'fenced_code';
-  children: ElementToken | string;
-  extra: string;
-  lang: string;
-};
+  element: 'fenced_code'
+  children: ElementToken | string
+  extra: string
+  lang: string
+}
 export type HeadingToken = {
-  element: 'heading';
-  children: ElementToken[];
-  level: 1 | 2 | 3 | 4 | 5 | 6;
-};
-export type HtmlBlockToken = { element: 'html_block'; children: string };
-export type ImageToken = { element: 'image'; children: ElementToken[]; dest: string };
-export type LinkToken = { element: 'link'; dest: string; children: ElementToken[] | string };
-export type ListItemToken = { element: 'list_item'; children: ElementToken[] };
+  element: 'heading'
+  children: ElementToken[]
+  level: 1 | 2 | 3 | 4 | 5 | 6
+}
+export type HtmlBlockToken = { element: 'html_block'; children: string }
+export type ImageToken = { element: 'image'; children: ElementToken[]; dest: string }
+export type LinkToken = { element: 'link'; dest: string; children: ElementToken[] | string }
+export type ListItemToken = { element: 'list_item'; children: ElementToken[] }
 export type ListToken = {
-  element: 'list';
-  children: ElementToken[];
-  bullet: string;
-  ordered: boolean;
-  start: number;
-  tight: boolean;
-};
-export type ParagraphToken = { element: 'paragraph'; children: ElementToken[] };
-export type QuoteToken = { element: 'quote'; children: ElementToken[] };
-export type RawTextToken = { element: 'raw_text'; children: string; escape: boolean };
-export type StrongEmphasisToken = { element: 'strong_emphasis'; children: ElementToken[] };
-export type WikilinkToken = { element: 'wikilink_element'; dest: string; children: string };
+  element: 'list'
+  children: ElementToken[]
+  bullet: string
+  ordered: boolean
+  start: number
+  tight: boolean
+}
+export type ParagraphToken = { element: 'paragraph'; children: ElementToken[] }
+export type QuoteToken = { element: 'quote'; children: ElementToken[] }
+export type RawTextToken = { element: 'raw_text'; children: string; escape: boolean }
+export type StrongEmphasisToken = { element: 'strong_emphasis'; children: ElementToken[] }
+export type WikilinkToken = { element: 'wikilink_element'; dest: string; children: string }
 export type ElementToken =
   | AutoLinkToken
   | BlankLineToken
@@ -71,32 +71,39 @@ export type ElementToken =
   | QuoteToken
   | RawTextToken
   | StrongEmphasisToken
-  | WikilinkToken;
+  | WikilinkToken
 export type DocumentToken = {
-  element: 'document';
-  children: ElementToken[];
-};
-type FilenameToNoteId = Record<Filename, NoteId | undefined>;
-type NoteIdToFrontmatter = Record<NoteId, Frontmatter>;
-type NoteIdToReadableText = Record<NoteId, string>;
-type NoteIdToDocumentToken = Record<NoteId, DocumentToken>;
-type LinkIndex = Record<LinkId, Link>;
-type NoteIdToWikilinks = Record<NoteId, LinkId[]>;
-type NoteIdToBacklinks = Record<NoteId, LinkId[]>;
-type TagToNoteIds = Record<Tag, NoteId[]>;
-type HashtagToNoteIds = Record<Hashtag, NoteId[]>;
+  element: 'document'
+  children: ElementToken[]
+}
+type FilenameToNoteId = Record<Filename, NoteId | undefined>
+type NoteIdToFrontmatter = Record<NoteId, Frontmatter>
+type NoteIdToReadableText = Record<NoteId, string>
+type NoteIdToDocumentToken = Record<NoteId, DocumentToken>
+type LinkIndex = Record<LinkId, Link>
+type NoteIdToWikilinks = Record<NoteId, LinkId[]>
+type NoteIdToBacklinks = Record<NoteId, LinkId[]>
+type TagToNoteIds = Record<Tag, NoteId[]>
+type HashtagToNoteIds = Record<Hashtag, NoteId[]>
 export type Cache = {
-  filenameToNoteId: FilenameToNoteId;
-  hashtagToNoteIds: HashtagToNoteIds;
-  linkIndex: LinkIndex;
-  noteIdToBacklinks: NoteIdToBacklinks;
-  noteIdToDocumentToken: NoteIdToDocumentToken;
-  noteIdToFrontmatter: NoteIdToFrontmatter;
-  noteIdToReadableText: NoteIdToReadableText;
-  noteIdToWikilinks: NoteIdToWikilinks;
-  tagToNoteIds: TagToNoteIds;
-};
+  filenameToNoteId: FilenameToNoteId
+  hashtagToNoteIds: HashtagToNoteIds
+  linkIndex: LinkIndex
+  noteIdToBacklinks: NoteIdToBacklinks
+  noteIdToDocumentToken: NoteIdToDocumentToken
+  noteIdToFrontmatter: NoteIdToFrontmatter
+  noteIdToReadableText: NoteIdToReadableText
+  noteIdToWikilinks: NoteIdToWikilinks
+  tagToNoteIds: TagToNoteIds
+}
 
+export const getNoteIds = async (): Promise<NoteId[] | undefined> => {
+  const snapshot = await get(ref(db, 'filenameToNoteId'))
+  if (snapshot.exists()) {
+    const filenameToNoteId = snapshot.val() as Record<Filename, NoteId>
+    return Object.values(filenameToNoteId)
+  }
+}
 export const getFilename = async (noteId: NoteId): Promise<Filename | undefined> => {
   const snapshot = await get(ref(db, 'filenameToNoteId'))
   if (snapshot.exists()) {
