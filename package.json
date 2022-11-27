@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --dir app styles utils --fix"
+    "lint": "next lint --dir pages styles utils --fix"
   },
   "dependencies": {
     "@types/node": "18.11.9",

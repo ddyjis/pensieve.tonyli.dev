@@ -5,8 +5,8 @@ import { db } from './firebase'
 type Filename = string
 export type NoteId = string
 export type LinkId = string
-type Tag = string
-type Hashtag = string
+export type Tag = string
+export type Hashtag = string
 export type Frontmatter = {
   id: string
   title: string
@@ -77,25 +77,13 @@ export type DocumentToken = {
   children: ElementToken[]
 }
 type FilenameToNoteId = Record<Filename, NoteId | undefined>
-type NoteIdToFrontmatter = Record<NoteId, Frontmatter>
-type NoteIdToReadableText = Record<NoteId, string>
-type NoteIdToDocumentToken = Record<NoteId, DocumentToken>
 type LinkIndex = Record<LinkId, Link>
-type NoteIdToWikilinks = Record<NoteId, LinkId[]>
-type NoteIdToBacklinks = Record<NoteId, LinkId[]>
-type TagToNoteIds = Record<Tag, NoteId[]>
-type HashtagToNoteIds = Record<Hashtag, NoteId[]>
-export type Cache = {
-  filenameToNoteId: FilenameToNoteId
-  hashtagToNoteIds: HashtagToNoteIds
-  linkIndex: LinkIndex
-  noteIdToBacklinks: NoteIdToBacklinks
-  noteIdToDocumentToken: NoteIdToDocumentToken
-  noteIdToFrontmatter: NoteIdToFrontmatter
-  noteIdToReadableText: NoteIdToReadableText
-  noteIdToWikilinks: NoteIdToWikilinks
-  tagToNoteIds: TagToNoteIds
-}
+export type TagToNoteIds = Record<Tag, NoteId[]>
+export type HashtagToNoteIds = Record<Hashtag, NoteId[]>
+
+export type BacklinkDetails = Record<LinkId, Link & { noteTitle: string }>
+
+export type NoteIdToTitle = Record<NoteId, string>
 
 export const getNoteIds = async (): Promise<NoteId[] | undefined> => {
   const snapshot = await get(ref(db, 'filenameToNoteId'))
@@ -159,5 +147,29 @@ export const getLink = async (linkId: LinkId): Promise<Link | undefined> => {
   if (snapshot.exists()) {
     const linkIndex: LinkIndex = snapshot.val()
     return linkIndex[linkId]
+  }
+}
+export const getHashtagToNoteIds = async (): Promise<HashtagToNoteIds | undefined> => {
+  const snapshot = await get(ref(db, 'hashtagToNoteIds'))
+  if (snapshot.exists()) {
+    return snapshot.val()
+  }
+}
+export const getNoteIdsFromHashtag = async (hashtag: Hashtag): Promise<NoteId[] | undefined> => {
+  const snapshot = await get(ref(db, `hashtagToNoteIds/${hashtag}`))
+  if (snapshot.exists()) {
+    return snapshot.val()
+  }
+}
+export const getTagToNoteIds = async (): Promise<TagToNoteIds | undefined> => {
+  const snapshot = await get(ref(db, 'tagToNoteIds'))
+  if (snapshot.exists()) {
+    return snapshot.val()
+  }
+}
+export const getNoteIdsFromTag = async (tag: Tag): Promise<NoteId[] | undefined> => {
+  const snapshot = await get(ref(db, `tagToNoteIds/${tag}`))
+  if (snapshot.exists()) {
+    return snapshot.val()
   }
 }

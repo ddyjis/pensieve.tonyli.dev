@@ -1,9 +1,7 @@
 import NextLink from 'next/link'
 
-import { type Link, type LinkId } from '../utils/cache'
+import { type BacklinkDetails } from '../utils/cache'
 
-type LinkDetails = Link & { noteTitle: string }
-type BacklinkDetails = Record<LinkId, LinkDetails>
 interface BacklinksProps {
   backlinkDetails: BacklinkDetails
 }

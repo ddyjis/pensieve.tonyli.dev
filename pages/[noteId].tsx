@@ -5,10 +5,9 @@ import Backlinks from '../components/Backlinks'
 import Frontmatter from '../components/Frontmatter'
 import DocumentToken from '../components/Token'
 import {
+  type BacklinkDetails,
   type DocumentToken as DocumentTokenType,
   type Frontmatter as FrontmatterType,
-  type Link,
-  type LinkId,
   type NoteId,
   getBacklinkIds,
   getDocumentToken,
@@ -18,9 +17,6 @@ import {
   getNoteIds,
 } from '../utils/cache'
 import useHistory from '../utils/hooks/useHistory'
-
-type LinkDetails = Link & { noteTitle: string }
-type BacklinkDetails = Record<LinkId, LinkDetails>
 
 interface NotePageProps {
   noteId: NoteId
