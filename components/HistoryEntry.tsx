@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { type NoteId, getFrontmatter } from '../utils/cache'
+import { type NoteId, getFrontmatter } from '../lib/cache'
 
 interface HistoryEntryProps {
   noteId: NoteId

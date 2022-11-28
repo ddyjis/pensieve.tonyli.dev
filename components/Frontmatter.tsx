@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 
-import type { Frontmatter as FrontmatterType } from '../utils/cache'
+import type { Frontmatter as FrontmatterType } from '../lib/cache'
 
 interface FrontmatterProps {
   frontmatter: FrontmatterType

@@ -15,8 +15,8 @@ import {
   getFrontmatter,
   getLink,
   getNoteIds,
-} from '../utils/cache'
-import useHistory from '../utils/hooks/useHistory'
+} from '../lib/cache'
+import useHistory from '../lib/hooks/useHistory'
 
 interface NotePageProps {
   noteId: NoteId

@@ -1,4 +1,4 @@
-import useHistory from '../utils/hooks/useHistory'
+import useHistory from '../lib/hooks/useHistory'
 import HistoryEntry from './HistoryEntry'
 
 export default function History() {

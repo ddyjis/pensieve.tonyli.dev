@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 
-import { type BacklinkDetails } from '../utils/cache'
+import { type BacklinkDetails } from '../lib/cache'
 
 interface BacklinksProps {
   backlinkDetails: BacklinkDetails

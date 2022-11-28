@@ -22,7 +22,7 @@ import type {
   QuoteToken,
   StrongEmphasisToken,
   WikilinkToken,
-} from '../utils/cache'
+} from '../lib/cache'
 
 export interface ElementTokenProps<T extends ElementToken> {
   token: T

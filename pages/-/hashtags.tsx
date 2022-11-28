@@ -1,7 +1,7 @@
 import type { GetStaticProps } from 'next'
 import NextLink from 'next/link'
 
-import { getHashtagToNoteIds, HashtagToNoteIds } from '../../utils/cache'
+import { getHashtagToNoteIds, HashtagToNoteIds } from '../../lib/cache'
 
 interface HashtagsPageProps {
   hashtagToNoteIds: HashtagToNoteIds
