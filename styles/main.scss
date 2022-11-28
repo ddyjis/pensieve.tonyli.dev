@@ -1,7 +1,7 @@
-@import "base/reset";
-@import "base/typography";
-@import "components/hero";
-@import "components/markdown";
-@import "layout/container";
-@import "pages/note";
-@import "themes/default";
+@use "base/reset";
+@use "base/typography";
+@use "components/hero";
+@use "components/markdown";
+@use "layout/container";
+@use "pages/note";
+@use "themes/default";
