@@ -33,10 +33,11 @@ export default function NotePage({
   documentToken,
   backlinkDetails,
 }: NotePageProps) {
+  // TODO: move this to a context
   const { addHistory } = useHistory()
   useEffect(() => {
     addHistory(noteId)
-  })
+  }, [noteId])
 
   return (
     <div className="note__wrapper container">
