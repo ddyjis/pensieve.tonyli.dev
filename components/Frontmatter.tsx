@@ -25,9 +25,12 @@ export default function Frontmatter({ frontmatter, filename }: FrontmatterProps)
           </div>
         ))}
       </div>
-      {/* TODO: add baseurl for edit */}
       {filename && (
-        <NextLink className="note__edit_link" href={`/${filename}.md`}>
+        <NextLink
+          className="note__edit_link"
+          href={`${process.env.NEXT_PUBLIC_CONTENT_EDIT_BASE_URL}${filename}.md`}
+          target="_blank"
+        >
           Edit
         </NextLink>
       )}
