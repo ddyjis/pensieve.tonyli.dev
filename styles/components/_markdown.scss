@@ -1,6 +1,6 @@
 .markdown {
     a {
-        & > svg[class$=external-link] {
+        &>svg[class$=external-link] {
             margin-left: 0.25rem;
             display: inline;
         }
@@ -11,6 +11,7 @@
             &::before {
                 content: "[[ ";
             }
+
             &::after {
                 content: " ]]";
             }
@@ -25,16 +26,20 @@
             margin-bottom: 0;
         }
 
-        & > blockquote {
+        &>blockquote {
             margin: 0.5rem 0.25rem;
         }
+    }
+
+    code {
+        font-family: var(--font-monospace);
     }
 
     div.html_block:has(data) {
         margin-bottom: 0.25rem;
     }
 
-    div.html_block > data {
+    div.html_block>data {
         border-left: 0.25rem solid black;
         padding: 0.5rem;
 
@@ -49,8 +54,14 @@
         font-family: var(--font-serif);
     }
 
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3 {
         font-family: var(--font-serif);
+    }
+
+    pre {
+        font-family: var(--font-monospace);
     }
 
     pre.prism-code {
@@ -60,7 +71,7 @@
         text-align: left;
         overflow: scroll;
         position: relative;
-    
+
         div.copy {
             background-color: var(--theme-primary-color-transparent);
             position: absolute;
@@ -72,11 +83,11 @@
             padding: 0.5rem;
             cursor: pointer;
         }
-    
+
         div.token-line {
             display: table-row;
         }
-    
+
         span.line-number {
             display: table-cell;
             text-align: right;
@@ -84,9 +95,9 @@
             user-select: none;
             opacity: 0.5;
         }
-    
+
         span.line-content {
             display: table-cell;
         }
-      }
+    }
 }
