@@ -1,0 +1,37 @@
+@use "../abstract/mixins";
+
+.history {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &::before {
+    @include mixins.section-title("HISTORY")
+  }
+
+  .history__entry {
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .history__entry__title {
+      margin-right: 1.25rem;
+
+      @include mixins.force-line-number();
+      font-size: 1.25rem;
+    }
+
+    .history__entry__remove__button {
+      position: absolute;
+      right: 0;
+
+      display: none;
+    }
+
+    &:hover>.history__entry__remove__button {
+      display: unset;
+    }
+  }
+}

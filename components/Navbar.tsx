@@ -21,7 +21,7 @@ const NavbarItem = ({ icon: IconComponent, label, href, onClick }: NavbarItemPro
 export default function Navbar() {
   const router = useRouter()
   return (
-    <nav className="container">
+    <nav>
       <NavbarItem icon={Tags} label="Tags" href="/-/tags" />
       <NavbarItem icon={Hash} label="Label" href="/-/hashtags" />
       <NavbarItem icon={RefreshCcw} label="Refresh" href="#" onClick={() => router.reload()} />

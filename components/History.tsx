@@ -1,11 +1,12 @@
-import useHistory from '../lib/hooks/useHistory'
+import { useContext } from 'react'
+
 import HistoryEntry from './HistoryEntry'
+import { PensieveContext } from './PensieveContext'
 
 export default function History() {
-  const { history } = useHistory()
+  const { history } = useContext(PensieveContext)
   return (
     <div className="history">
-      <h1 className="history__title">History</h1>
       {history.map((noteId) => (
         <HistoryEntry noteId={noteId} key={noteId} />
       ))}

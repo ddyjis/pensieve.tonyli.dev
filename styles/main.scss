@@ -1,9 +1,9 @@
 @use "base/reset";
 @use "base/typography";
 @use "components/hero";
+@use "components/history";
 @use "components/markdown";
 @use "components/navbar";
-@use "layout/container";
 @use "layout/layout";
 @use "pages/note";
 @use "themes/default";

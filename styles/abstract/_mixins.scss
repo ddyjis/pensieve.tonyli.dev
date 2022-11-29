@@ -1,0 +1,20 @@
+@mixin section-title($title) {
+  content: $title;
+
+  display: block;
+
+  color: gray;
+  font-family: var(--font-sans-serif);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+
+@mixin force-line-number($num: 1) {
+  display: -webkit-box;
+  -webkit-line-clamp: $num;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-break: anywhere;
+}

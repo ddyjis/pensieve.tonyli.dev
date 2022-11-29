@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 
 import Layout from '../components/Layout'
+import { PensieveProvider } from '../components/PensieveContext'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -12,9 +13,11 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Pensieve</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <PensieveProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </PensieveProvider>
     </>
   )
 }

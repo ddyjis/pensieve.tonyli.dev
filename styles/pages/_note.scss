@@ -1,3 +1,5 @@
+@use "../abstract/mixins";
+
 .note {
     padding: 2rem;
 
@@ -12,7 +14,8 @@ header.note__header {
         font-size: 2.5rem;
     }
 
-    a, div {
+    a,
+    div {
         font-family: var(--font-monospace);
     }
 
@@ -27,6 +30,7 @@ header.note__header {
             &::before {
                 content: "( ";
             }
+
             &::after {
                 content: " )";
             }
@@ -46,7 +50,8 @@ header.note__header {
         }
     }
 
-    div.note__create_time, div.note__update_time {
+    div.note__create_time,
+    div.note__update_time {
         color: gray;
     }
 
@@ -66,14 +71,7 @@ footer.note__footer {
         gap: 1rem;
 
         &:has(.note__backlink)::before {
-            content: "MENTIONED IN";
-
-            display: block;
-
-            color: gray;
-            font-family: var(--font-sans-serif);
-            font-size: 0.75rem;
-            text-align: center;
+            @include mixins.section-title("MENTIONED IN");
         }
 
         div.note__backlink__container {
@@ -85,6 +83,7 @@ footer.note__footer {
             h1.note__backlink__title {
                 font-size: 1.25rem;
             }
+
             div.note__backlink__content {
                 color: gray;
                 font-size: 0.8rem;

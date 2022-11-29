@@ -1,8 +1,12 @@
+@use "../abstract/placeholders";
+
 .nav__wrapper {
   border-top: 2px solid var(--theme-primary-color);
 }
 
 nav {
+  @extend %container;
+
   padding: 0.5rem 1rem;
 
   display: flex;

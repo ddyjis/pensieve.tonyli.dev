@@ -1,8 +1,9 @@
 import type { GetStaticPaths, GetStaticProps } from 'next'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 
 import Backlinks from '../components/Backlinks'
 import Frontmatter from '../components/Frontmatter'
+import { PensieveContext } from '../components/PensieveContext'
 import DocumentToken from '../components/Token'
 import {
   type BacklinkDetails,
@@ -16,7 +17,6 @@ import {
   getLink,
   getNoteIds,
 } from '../lib/cache'
-import useHistory from '../lib/hooks/useHistory'
 
 interface NotePageProps {
   noteId: NoteId
@@ -33,10 +33,12 @@ export default function NotePage({
   documentToken,
   backlinkDetails,
 }: NotePageProps) {
-  // TODO: move this to a context
-  const { addHistory } = useHistory()
+  const { addHistory } = useContext(PensieveContext)
   useEffect(() => {
-    addHistory(noteId)
+    if (noteId) {
+      addHistory(noteId)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [noteId])
 
   return (
