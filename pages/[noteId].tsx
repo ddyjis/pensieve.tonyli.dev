@@ -16,7 +16,7 @@ import {
   getFrontmatter,
   getLink,
   getNoteIds,
-} from '../lib/cache'
+} from '../lib/firebase'
 
 interface NotePageProps {
   noteId: NoteId

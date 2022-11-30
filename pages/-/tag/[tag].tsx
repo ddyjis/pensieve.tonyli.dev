@@ -8,7 +8,7 @@ import {
   getFrontmatter,
   getNoteIdsFromTag,
   getTagToNoteIds,
-} from '../../../lib/cache'
+} from '../../../lib/firebase'
 
 interface TagPageProps {
   tag: Tag

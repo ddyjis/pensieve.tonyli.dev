@@ -1,7 +1,7 @@
 import type { GetStaticProps } from 'next'
 import NextLink from 'next/link'
 
-import { getTagToNoteIds, TagToNoteIds } from '../../lib/cache'
+import { getTagToNoteIds, TagToNoteIds } from '../../lib/firebase'
 
 interface TagsPageProps {
   tagToNoteIds: TagToNoteIds

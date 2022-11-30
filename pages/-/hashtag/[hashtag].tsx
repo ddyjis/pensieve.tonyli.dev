@@ -8,7 +8,7 @@ import {
   getFrontmatter,
   getHashtagToNoteIds,
   getNoteIdsFromHashtag,
-} from '../../../lib/cache'
+} from '../../../lib/firebase'
 
 interface HashtagPageProps {
   hashtag: Hashtag

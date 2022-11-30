@@ -2,7 +2,7 @@ import { X } from 'lucide-react'
 import NextLink from 'next/link'
 import { useContext, useEffect, useState } from 'react'
 
-import { type NoteId, getFrontmatter } from '../lib/cache'
+import { type NoteId, getFrontmatter } from '../lib/firebase'
 import { PensieveContext } from './PensieveContext'
 
 interface HistoryEntryProps {

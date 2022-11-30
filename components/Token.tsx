@@ -22,7 +22,7 @@ import type {
   QuoteToken,
   StrongEmphasisToken,
   WikilinkToken,
-} from '../lib/cache'
+} from '../lib/firebase'
 
 export interface ElementTokenProps<T extends ElementToken> {
   token: T

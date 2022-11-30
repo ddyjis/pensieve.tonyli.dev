@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react'
 
-import type { NoteId } from '../lib/cache'
+import type { NoteId } from '../lib/firebase'
 import useLocalStorage from '../lib/hooks/useLocalStorage'
 
 interface PensieveContextProps {
