@@ -53,6 +53,7 @@ export type HeadingToken = {
 }
 export type HtmlBlockToken = { element: 'html_block'; children: string }
 export type ImageToken = { element: 'image'; children: ElementToken[]; dest: string }
+export type LineBreakToken = { element: 'line_break'; soft: boolean }
 export type LinkToken = { element: 'link'; dest: string; children: ElementToken[] | string }
 export type ListItemToken = { element: 'list_item'; children: ElementToken[] }
 export type ListToken = {
@@ -63,6 +64,7 @@ export type ListToken = {
   start: number
   tight: boolean
 }
+export type LiteralToken = { element: 'literal'; children: string }
 export type ParagraphToken = { element: 'paragraph'; children: ElementToken[] }
 export type QuoteToken = { element: 'quote'; children: ElementToken[] }
 export type RawTextToken = { element: 'raw_text'; children: string; escape: boolean }
@@ -77,9 +79,11 @@ export type ElementToken =
   | HeadingToken
   | HtmlBlockToken
   | ImageToken
+  | LineBreakToken
   | LinkToken
   | ListItemToken
   | ListToken
+  | LiteralToken
   | ParagraphToken
   | QuoteToken
   | RawTextToken

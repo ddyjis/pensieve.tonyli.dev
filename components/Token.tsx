@@ -15,9 +15,11 @@ import type {
   HeadingToken,
   HtmlBlockToken,
   ImageToken,
+  LineBreakToken,
   LinkToken,
   ListItemToken,
   ListToken,
+  LiteralToken,
   ParagraphToken,
   QuoteToken,
   StrongEmphasisToken,
@@ -105,6 +107,9 @@ const Image = ({ token }: ElementTokenProps<ImageToken>) => {
   // eslint-disable-next-line @next/next/no-img-element
   return <img src={token.dest} alt={altText} />
 }
+const LineBreak = ({ token }: ElementTokenProps<LineBreakToken>) => {
+  return token.soft ? <>{'\n'}</> : <br />
+}
 const Link = ({ token }: ElementTokenProps<LinkToken>) => {
   const isExternal = token.dest.startsWith('http')
   return (
@@ -125,6 +130,7 @@ const ListItem = ({ token }: ElementTokenProps<ListItemToken>) => (
     <Children tokens={token.children} />
   </li>
 )
+const Literal = ({ token }: ElementTokenProps<LiteralToken>) => <>{token.children}</>
 const OrderedList = ({ token }: ElementTokenProps<ListToken>) => (
   <ol>
     <Children tokens={token.children} />
@@ -178,12 +184,16 @@ function ElementToken({ token }: ElementTokenProps<ElementToken>) {
   } else if (token.element === 'image') {
     // eslint-disable-next-line jsx-a11y/alt-text
     return <Image token={token} />
+  } else if (token.element === 'line_break') {
+    return <LineBreak token={token} />
   } else if (token.element === 'link') {
     return <Link token={token} />
   } else if (token.element === 'list') {
     return <List token={token} />
   } else if (token.element === 'list_item') {
     return <ListItem token={token} />
+  } else if (token.element === 'literal') {
+    return <Literal token={token} />
   } else if (token.element === 'paragraph') {
     return <Paragraph token={token} />
   } else if (token.element === 'quote') {
