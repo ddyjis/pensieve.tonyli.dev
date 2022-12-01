@@ -3,7 +3,9 @@ import type { NextApiHandler } from 'next'
 import { type NoteId } from '../../lib/firebase'
 import { search } from '../../lib/redis'
 
-export type SearchResult = { notes: { id: NoteId; value: { readableText: string } }[] }
+export type SearchResult = {
+  notes: { id: NoteId; value: { readableText: string; title: string } }[]
+}
 
 const handler: NextApiHandler = async (req, res) => {
   const q = req.query.q

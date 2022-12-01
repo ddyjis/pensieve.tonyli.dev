@@ -6,9 +6,11 @@ const client = createClient({ url: process.env.REDIS_URL })
 })()
 
 export const search = async (q: string) => {
+  // Ignore TS error complaining FIELDS values not starting with @ or $.
+  // @ts-ignore
   const { documents } = await client.ft.search('Note', q, {
-    SUMMARIZE: { LEN: 50, SEPARATOR: '...' },
-    HIGHLIGHT: { TAGS: { open: '<mark>', close: '</mark>' } },
+    SUMMARIZE: { FIELDS: ['readableText'], LEN: 50, SEPARATOR: '...' },
+    HIGHLIGHT: { FIELDS: ['readableText'], TAGS: { open: '<mark>', close: '</mark>' } },
   })
   return documents
 }

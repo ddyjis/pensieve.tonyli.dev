@@ -1,3 +1,4 @@
+import NextLink from 'next/link'
 import React, { useContext } from 'react'
 
 import { PensieveContext } from '../../components/PensieveContext'
@@ -41,10 +42,11 @@ const SearchResult = () => {
 
   return (
     <div className="search-result">
-      {data.notes.map(({ id, value: { readableText } }) => (
-        <div className="search-result__item" key={id}>
+      {data.notes.map(({ id, value: { readableText, title } }) => (
+        <NextLink href={`/${id}`} className="search-result__item" key={id}>
+          <h1>{title}</h1>
           <p dangerouslySetInnerHTML={{ __html: readableText }}></p>
-        </div>
+        </NextLink>
       ))}
     </div>
   )
