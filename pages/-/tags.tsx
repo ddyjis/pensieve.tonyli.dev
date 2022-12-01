@@ -9,25 +9,28 @@ interface TagsPageProps {
 
 export default function TagsPage({ tagToNoteIds }: TagsPageProps) {
   return (
-    <ul className="tags">
-      {Object.entries(tagToNoteIds)
-        .sort(([aTag, aNoteIds], [bTag, bNoteIds]) =>
-          aNoteIds.length > bNoteIds.length
-            ? -1
-            : aNoteIds.length < bNoteIds.length
-            ? 1
-            : aTag > bTag
-            ? 1
-            : -1
-        )
-        .map(([tag, noteIds]) => {
-          return (
-            <li key={tag}>
-              <NextLink href={`/-/tag/${tag}`}>{`${tag} (${noteIds.length})`}</NextLink>
-            </li>
+    <>
+      <h1>Tags</h1>
+      <ul className="tags">
+        {Object.entries(tagToNoteIds)
+          .sort(([aTag, aNoteIds], [bTag, bNoteIds]) =>
+            aNoteIds.length > bNoteIds.length
+              ? -1
+              : aNoteIds.length < bNoteIds.length
+              ? 1
+              : aTag > bTag
+              ? 1
+              : -1
           )
-        })}
-    </ul>
+          .map(([tag, noteIds]) => {
+            return (
+              <li key={tag}>
+                <NextLink href={`/-/tag/${tag}`}>{`${tag} (${noteIds.length})`}</NextLink>
+              </li>
+            )
+          })}
+      </ul>
+    </>
   )
 }
 

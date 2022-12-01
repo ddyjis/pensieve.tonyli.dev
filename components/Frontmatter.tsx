@@ -20,9 +20,9 @@ export default function Frontmatter({ frontmatter, filename }: FrontmatterProps)
       </div>
       <div className="note__tags">
         {frontmatter.tags?.map((tag) => (
-          <div className="note__tag" key={tag}>
-            {tag}
-          </div>
+          <NextLink href={`/-/tag/${tag}`} className="note__tag" key={tag}>
+            #{tag}
+          </NextLink>
         ))}
       </div>
       {filename && (
