@@ -1,18 +1,14 @@
-import { initializeApp } from 'firebase/app'
-import { get, getDatabase, ref } from 'firebase/database'
+import * as firebase from 'firebase-admin/app'
+import { getDatabase } from 'firebase-admin/database'
 
-const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: 'tonyli-pensieve.firebaseapp.com',
-  databaseURL: 'https://tonyli-pensieve.firebaseio.com',
-  projectId: 'tonyli-pensieve',
-  storageBucket: 'tonyli-pensieve.appspot.com',
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
-  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
-}
-
-const app = initializeApp(firebaseConfig)
+const app = firebase.initializeApp({
+  credential: firebase.cert({
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    clientEmail: process.env.FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL,
+    privateKey: process.env.FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY,
+  }),
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+})
 export const db = getDatabase(app)
 
 type Filename = string
@@ -103,14 +99,14 @@ export type BacklinkDetails = Record<LinkId, Link & { noteTitle: string }>
 export type NoteIdToTitle = Record<NoteId, string>
 
 export const getNoteIds = async (): Promise<NoteId[] | undefined> => {
-  const snapshot = await get(ref(db, 'filenameToNoteId'))
+  const snapshot = await db.ref('filenameToNoteId').get()
   if (snapshot.exists()) {
     const filenameToNoteId = snapshot.val() as Record<Filename, NoteId>
     return Object.values(filenameToNoteId)
   }
 }
 export const getFilename = async (noteId: NoteId): Promise<Filename | undefined> => {
-  const snapshot = await get(ref(db, 'filenameToNoteId'))
+  const snapshot = await db.ref('filenameToNoteId').get()
   if (snapshot.exists()) {
     const filenameToNoteId = snapshot.val() as FilenameToNoteId
     const match = Object.entries(filenameToNoteId).find(
@@ -123,69 +119,69 @@ export const getFilename = async (noteId: NoteId): Promise<Filename | undefined>
 }
 
 export const getNoteIdFromFilename = async (filename: Filename): Promise<NoteId | undefined> => {
-  const snapshot = await get(ref(db, `filenameToNoteId/${filename}`))
+  const snapshot = await db.ref(`filenameToNoteId/${filename}`).get()
   if (snapshot.exists()) {
     return snapshot.val()
   }
 }
 
 export const getDocumentToken = async (noteId: NoteId): Promise<DocumentToken | undefined> => {
-  const snapshot = await get(ref(db, `noteIdToDocumentToken/${noteId}`))
+  const snapshot = await db.ref(`noteIdToDocumentToken/${noteId}`).get()
   if (snapshot.exists()) {
     return snapshot.val()
   }
 }
 export const getFrontmatter = async (noteId: NoteId): Promise<Frontmatter | undefined> => {
-  const snapshot = await get(ref(db, `noteIdToFrontmatter/${noteId}`))
+  const snapshot = await db.ref(`noteIdToFrontmatter/${noteId}`).get()
   if (snapshot.exists()) {
     return snapshot.val()
   }
 }
 export const getReadableText = async (noteId: NoteId): Promise<string | undefined> => {
-  const snapshot = await get(ref(db, `noteIdToReadableText/${noteId}`))
+  const snapshot = await db.ref(`noteIdToReadableText/${noteId}`).get()
   if (snapshot.exists()) {
     return snapshot.val()
   }
 }
 export const getWikilinkIds = async (noteId: NoteId): Promise<LinkId[] | undefined> => {
-  const snapshot = await get(ref(db, `noteIdToWikilinks/${noteId}`))
+  const snapshot = await db.ref(`noteIdToWikilinks/${noteId}`).get()
   if (snapshot.exists()) {
     return snapshot.val()
   }
 }
 export const getBacklinkIds = async (noteId: NoteId): Promise<LinkId[] | undefined> => {
-  const snapshot = await get(ref(db, `noteIdToBacklinks/${noteId}`))
+  const snapshot = await db.ref(`noteIdToBacklinks/${noteId}`).get()
   if (snapshot.exists()) {
     return snapshot.val()
   }
 }
 export const getLink = async (linkId: LinkId): Promise<Link | undefined> => {
-  const snapshot = await get(ref(db, 'linkIndex')) // TODO: Confirm if this result is cached
+  const snapshot = await db.ref('linkIndex').get()
   if (snapshot.exists()) {
     const linkIndex: LinkIndex = snapshot.val()
     return linkIndex[linkId]
   }
 }
 export const getHashtagToNoteIds = async (): Promise<HashtagToNoteIds | undefined> => {
-  const snapshot = await get(ref(db, 'hashtagToNoteIds'))
+  const snapshot = await db.ref('hashtagToNoteIds').get()
   if (snapshot.exists()) {
     return snapshot.val()
   }
 }
 export const getNoteIdsFromHashtag = async (hashtag: Hashtag): Promise<NoteId[] | undefined> => {
-  const snapshot = await get(ref(db, `hashtagToNoteIds/${hashtag}`))
+  const snapshot = await db.ref(`hashtagToNoteIds/${hashtag}`).get()
   if (snapshot.exists()) {
     return snapshot.val()
   }
 }
 export const getTagToNoteIds = async (): Promise<TagToNoteIds | undefined> => {
-  const snapshot = await get(ref(db, 'tagToNoteIds'))
+  const snapshot = await db.ref('tagToNoteIds').get()
   if (snapshot.exists()) {
     return snapshot.val()
   }
 }
 export const getNoteIdsFromTag = async (tag: Tag): Promise<NoteId[] | undefined> => {
-  const snapshot = await get(ref(db, `tagToNoteIds/${tag}`))
+  const snapshot = await db.ref(`tagToNoteIds/${tag}`).get()
   if (snapshot.exists()) {
     return snapshot.val()
   }
