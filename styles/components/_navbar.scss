@@ -8,6 +8,7 @@ nav {
   @extend %container;
 
   padding: 0.5rem 1rem;
+  padding-bottom: env(safe-area-inset-bottom, 0.5rem);
 
   display: flex;
   justify-content: space-around;

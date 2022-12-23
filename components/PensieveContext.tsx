@@ -32,7 +32,6 @@ export const PensieveProvider = ({ children }: { children: React.ReactNode }) =>
   const [searchQuery, setSearchQuery] = useState(defaultValues.searchQuery)
 
   const addHistory = (entry: HistoryEntryProps) => {
-    console.log(entry)
     setHistory([entry, ...history.filter((h) => h.noteId !== entry.noteId)])
   }
 
