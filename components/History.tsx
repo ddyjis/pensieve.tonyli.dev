@@ -7,8 +7,8 @@ export default function History() {
   const { history } = useContext(PensieveContext)
   return (
     <div className="history">
-      {history.map((noteId) => (
-        <HistoryEntry noteId={noteId} key={noteId} />
+      {history.map((entry) => (
+        <HistoryEntry {...entry} key={entry.noteId} />
       ))}
     </div>
   )

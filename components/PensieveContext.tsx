@@ -1,18 +1,18 @@
 import { createContext, useState } from 'react'
 
-import type { NoteId } from '../lib/firebase'
 import useLocalStorage from '../lib/hooks/useLocalStorage'
+import type { HistoryEntryProps } from './HistoryEntry'
 
 interface PensieveContextProps {
-  history: NoteId[]
-  addHistory: (_noteId: NoteId) => void
-  removeHistory: (_noteId: NoteId) => void
+  history: HistoryEntryProps[]
+  addHistory: (_entry: HistoryEntryProps) => void
+  removeHistory: (_entry: HistoryEntryProps) => void
   searchQuery: string
   setSearchQuery: (_query: string) => void
 }
 
 const defaultValues = {
-  history: [] as NoteId[],
+  history: [] as HistoryEntryProps[],
   searchQuery: '',
 }
 
@@ -25,15 +25,19 @@ export const PensieveContext = createContext<PensieveContextProps>({
 })
 
 export const PensieveProvider = ({ children }: { children: React.ReactNode }) => {
-  const [history, setHistory] = useLocalStorage<string[]>('history', defaultValues.history)
+  const [history, setHistory] = useLocalStorage<HistoryEntryProps[]>(
+    'history',
+    defaultValues.history
+  )
   const [searchQuery, setSearchQuery] = useState(defaultValues.searchQuery)
 
-  const addHistory = (entry: string) => {
-    setHistory([entry, ...history.filter((h) => h !== entry)])
+  const addHistory = (entry: HistoryEntryProps) => {
+    console.log(entry)
+    setHistory([entry, ...history.filter((h) => h.noteId !== entry.noteId)])
   }
 
-  const removeHistory = (entry: string) => {
-    setHistory(history.filter((h) => h !== entry))
+  const removeHistory = (entry: HistoryEntryProps) => {
+    setHistory(history.filter((h) => h.noteId !== entry.noteId))
   }
 
   return (

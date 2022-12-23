@@ -1,31 +1,18 @@
 import { X } from 'lucide-react'
 import NextLink from 'next/link'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 
-import { type NoteId, getFrontmatter } from '../lib/firebase'
+import type { NoteId } from '../lib/firebase'
 import { PensieveContext } from './PensieveContext'
 
-interface HistoryEntryProps {
+export interface HistoryEntryProps {
   noteId: NoteId
+  title: string
 }
 
-export default function HistoryEntry({ noteId }: HistoryEntryProps) {
-  const [title, setTitle] = useState<string | undefined>(undefined)
+export default function HistoryEntry(entry: HistoryEntryProps) {
+  const { noteId, title } = entry
   const { removeHistory } = useContext(PensieveContext)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const frontmatter = await getFrontmatter(noteId)
-      if (frontmatter) {
-        setTitle(frontmatter.title)
-      }
-    }
-    fetchData()
-  }, [noteId])
-
-  if (!title) {
-    return <></>
-  }
 
   return (
     <div className="history__entry">
@@ -36,7 +23,7 @@ export default function HistoryEntry({ noteId }: HistoryEntryProps) {
         <X
           onClick={(e) => {
             e.stopPropagation()
-            removeHistory(noteId)
+            removeHistory(entry)
           }}
         />
       </div>
