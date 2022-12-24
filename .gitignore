@@ -37,3 +37,7 @@ next-env.d.ts
 
 # VSCode
 .vscode
+
+# PWA
+public/sw.js*
+public/workbox-*.js*

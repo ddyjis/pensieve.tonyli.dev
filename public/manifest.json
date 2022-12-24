@@ -1,6 +1,7 @@
 {
-  "name": "Pensieve",
+  "name": "The Pensieve",
   "short_name": "Pensieve",
+  "description": "The second brain that help me do the thinking",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +14,29 @@
       "type": "image/png"
     }
   ],
+  "start_url": "/?source=pwa",
   "theme_color": "#a78d72",
   "background_color": "#f8f9fa",
-  "display": "standalone"
+  "display": "standalone",
+  "scope": "/",
+  "shortcuts": [
+    {
+      "name": "Search in Pensieve",
+      "short_name": "Search",
+      "description": "Search for notes in the Pensieve",
+      "url": "/-/search?source=pwa"
+    },
+    {
+      "name": "Tags in Pensieve",
+      "short_name": "Tags",
+      "description": "Categories of notes in the Pensieve",
+      "url": "/-/tags?source=pwa"
+    },
+    {
+      "name": "Hashtags in Pensieve",
+      "short_name": "Hashtags",
+      "description": "State of notes in the Pensieve",
+      "url": "/-/hashtags?source=pwa"
+    }
+  ]
 }
