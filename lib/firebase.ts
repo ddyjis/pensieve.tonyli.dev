@@ -1,14 +1,16 @@
 import * as firebase from 'firebase-admin/app'
 import { getDatabase } from 'firebase-admin/database'
 
-const app = firebase.initializeApp({
-  credential: firebase.cert({
-    projectId: process.env.FIREBASE_PROJECT_ID,
-    clientEmail: process.env.FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL,
-    privateKey: process.env.FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY,
-  }),
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
-})
+const app = firebase.getApps().length
+  ? firebase.getApp()
+  : firebase.initializeApp({
+      credential: firebase.cert({
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        clientEmail: process.env.FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL,
+        privateKey: process.env.FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY,
+      }),
+      databaseURL: process.env.FIREBASE_DATABASE_URL,
+    })
 export const db = getDatabase(app)
 
 type Filename = string
@@ -26,7 +28,6 @@ export type Frontmatter = {
   updated: string
 }
 export type Link = { content: string; from: NoteId; to: NoteId }
-// TODO: Define Token type in details
 export type AutoLinkToken = {
   element: 'auto_link'
   children: ElementToken[]
