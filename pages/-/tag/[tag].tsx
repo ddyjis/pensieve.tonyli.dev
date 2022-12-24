@@ -17,7 +17,7 @@ interface TagPageProps {
 
 export default function TagPage({ tag, noteIdToTitle }: TagPageProps) {
   return (
-    <div className="tag">
+    <div className="metadata-page">
       <h1 className="tag__name">{tag}</h1>
       <ul className="notes">
         {Object.entries(noteIdToTitle).map(([noteId, title]) => (

@@ -9,7 +9,7 @@ interface TagsPageProps {
 
 export default function TagsPage({ tagToNoteIds }: TagsPageProps) {
   return (
-    <>
+    <div className="metadata-page">
       <h1>Tags</h1>
       <ul className="tags">
         {Object.entries(tagToNoteIds)
@@ -30,7 +30,7 @@ export default function TagsPage({ tagToNoteIds }: TagsPageProps) {
             )
           })}
       </ul>
-    </>
+    </div>
   )
 }
 

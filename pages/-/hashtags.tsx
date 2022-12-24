@@ -9,7 +9,7 @@ interface HashtagsPageProps {
 
 export default function HashtagsPage({ hashtagToNoteIds }: HashtagsPageProps) {
   return (
-    <>
+    <div className="metadata-page">
       <h1>Hashtags</h1>
       <ul className="hashtags">
         {Object.entries(hashtagToNoteIds)
@@ -26,13 +26,13 @@ export default function HashtagsPage({ hashtagToNoteIds }: HashtagsPageProps) {
             return (
               <li key={hashtag}>
                 <NextLink
-                  href={`/-/hashtags/${hashtag}`}
+                  href={`/-/hashtag/${hashtag}`}
                 >{`#${hashtag} (${noteIds.length})`}</NextLink>
               </li>
             )
           })}
       </ul>
-    </>
+    </div>
   )
 }
 

@@ -17,7 +17,7 @@ interface HashtagPageProps {
 
 export default function HashtagPage({ hashtag, noteIdToTitle }: HashtagPageProps) {
   return (
-    <div className="hashtag">
+    <div className="metadata-page">
       <h1 className="tag__name">{`#${hashtag}`}</h1>
       <ul className="notes">
         {Object.entries(noteIdToTitle).map(([noteId, title]) => (
