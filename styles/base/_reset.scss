@@ -89,13 +89,22 @@ a {
   text-decoration: none;
 }
 
+body {
+  // Fix mobile viewport when toolbar appears
+  min-height: -webkit-fill-available;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
 ol,
 ul {
   list-style-position: outside;
   width: 100%;
 }
 
-ul > li {
+ul>li {
   display: list-item;
   list-style-type: "— ";
   width: 100%;

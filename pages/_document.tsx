@@ -12,7 +12,7 @@ export default class Document extends NextDocument {
           <meta name="description" content="The second brain that help me do the thinking" />
           <meta name="format-detection" content="telephone=no" />
           <meta name="mobile-web-app-capable" content="yes" />
-          <meta name="theme-color" content="#a78d72" />
+          <meta name="theme-color" content="#ffffff" />
 
           <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
           <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
