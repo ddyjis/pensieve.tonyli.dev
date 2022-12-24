@@ -12,6 +12,8 @@ header.note__header {
     h1.note__title {
         font-family: var(--font-serif);
         font-size: 2.5rem;
+        line-height: 1.4;
+        text-align: center;
     }
 
     a,
@@ -20,34 +22,42 @@ header.note__header {
     }
 
     div.note__aliases {
+        margin-bottom: 1.5rem;
+
         display: flex;
-        gap: 0.25rem;
+        flex-direction: column;
+        align-items: center;
 
         color: gray;
         font-size: 0.8rem;
 
-        div.note__alias {
-            &::before {
-                content: "( ";
-            }
+        div.note__alias::before {
+            content: "( ";
+        }
 
-            &::after {
-                content: " )";
-            }
+        div.note__alias::after {
+            content: " )";
         }
     }
 
     div.note__tags {
         display: flex;
         gap: 0.5rem;
+        justify-content: center;
 
         a.note__tag {
             color: gray;
         }
     }
 
-    div.note__create_time,
-    div.note__update_time {
+    div.note__metadata {
+        display: flex;
+        justify-content: space-between;
+
+        color: gray;
+    }
+
+    a.note__edit_link {
         color: gray;
     }
 
