@@ -4,16 +4,14 @@ import { useRouter } from 'next/router'
 
 interface NavbarItemProps {
   icon: Icon
-  label: string
   href: string
   onClick?: () => void
 }
 
-const NavbarItem = ({ icon: IconComponent, label, href, onClick }: NavbarItemProps) => {
+const NavbarItem = ({ icon: IconComponent, href, onClick }: NavbarItemProps) => {
   return (
     <NextLink href={href} className="navbar__item" onClick={onClick}>
       <IconComponent size={32} />
-      <div className="navbar__item__title">{label}</div>
     </NextLink>
   )
 }
@@ -22,11 +20,11 @@ export default function Navbar() {
   const router = useRouter()
   return (
     <nav>
-      <NavbarItem icon={Tags} label="Tags" href="/-/tags" />
-      <NavbarItem icon={Hash} label="Label" href="/-/hashtags" />
-      <NavbarItem icon={RefreshCcw} label="Refresh" href="#" onClick={() => router.reload()} />
-      <NavbarItem icon={History} label="History" href="/" />
-      <NavbarItem icon={Search} label="Search" href="/-/search" />
+      <NavbarItem icon={Tags} href="/-/tags" />
+      <NavbarItem icon={Hash} href="/-/hashtags" />
+      <NavbarItem icon={RefreshCcw} href="#" onClick={() => router.reload()} />
+      <NavbarItem icon={History} href="/" />
+      <NavbarItem icon={Search} href="/-/search" />
     </nav>
   )
 }
