@@ -1,5 +1,9 @@
 .markdown {
     a {
+        &[target=_blank] {
+            text-decoration: underline;
+        }
+
         &>svg[class$=external-link] {
             margin-left: 0.25rem;
             display: inline;
@@ -58,6 +62,10 @@
     h2,
     h3 {
         font-family: var(--font-serif);
+    }
+
+    p+p {
+        margin-top: 1rem;
     }
 
     pre {
