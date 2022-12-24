@@ -18,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>Pensieve</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </Head>
       <style jsx global>{`
         :root {
