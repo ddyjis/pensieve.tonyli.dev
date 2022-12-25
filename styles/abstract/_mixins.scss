@@ -17,9 +17,3 @@
   overflow: hidden;
   line-break: anywhere;
 }
-
-@mixin for-desktop-only {
-  @media (min-width: 1024px) {
-    @content;
-  }
-}

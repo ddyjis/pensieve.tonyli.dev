@@ -1,4 +1,5 @@
 @use "../abstract/mixins";
+@use "../abstract/variables";
 
 .note {
     padding: 2rem;
@@ -58,7 +59,7 @@ header.note__header {
 
         color: gray;
 
-        @include mixins.for-desktop-only {
+        @media (min-width: variables.$desktop-min-width) {
             flex-direction: unset;
         }
     }
@@ -68,7 +69,7 @@ header.note__header {
 
         display: none;
 
-        @include mixins.for-desktop-only {
+        @media (min-width: variables.$desktop-min-width) {
             display: unset;
         }
     }
