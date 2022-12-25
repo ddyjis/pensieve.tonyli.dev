@@ -1,5 +1,4 @@
 import NextLink from 'next/link'
-import Balancer from 'react-wrap-balancer'
 
 import type { Frontmatter as FrontmatterType } from '../lib/firebase'
 
@@ -11,9 +10,9 @@ interface FrontmatterProps {
 export default function Frontmatter({ frontmatter, filename }: FrontmatterProps) {
   return (
     <header className="note__header">
-      <h1 className="note__title">
-        <Balancer ratio={0.5}>{frontmatter.title}</Balancer>
-      </h1>
+      {/* TODO: Currently the balancer is making the page to jump occasionally after scrolling.
+       *  Upgrade react-wrap-balancer to see if it could be fixed (current version: v0.2.3) */}
+      <h1 className="note__title">{frontmatter.title}</h1>
       <div className="note__aliases">
         {frontmatter.aliases?.map((alias) => (
           <div className="note__alias" key={alias}>
