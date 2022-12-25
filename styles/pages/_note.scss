@@ -85,6 +85,10 @@ header.note__header {
 
 footer.note__footer {
     div.note__backlinks {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
         &:has(.note__backlink)::before {
             @include mixins.section-title("MENTIONED IN");
         }
