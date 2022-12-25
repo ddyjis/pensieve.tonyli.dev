@@ -9,7 +9,6 @@
   text-align: center;
 }
 
-
 @mixin force-line-number($num: 1) {
   display: -webkit-box;
   -webkit-line-clamp: $num;
@@ -17,4 +16,10 @@
   text-overflow: ellipsis;
   overflow: hidden;
   line-break: anywhere;
+}
+
+@mixin for-desktop-only {
+  @media (min-width: 1024px) {
+    @content;
+  }
 }

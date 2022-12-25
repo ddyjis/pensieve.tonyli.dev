@@ -52,13 +52,25 @@ header.note__header {
 
     div.note__metadata {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
+        align-items: center;
 
         color: gray;
+
+        @include mixins.for-desktop-only {
+            flex-direction: unset;
+        }
     }
 
     a.note__edit_link {
         color: gray;
+
+        display: none;
+
+        @include mixins.for-desktop-only {
+            display: unset;
+        }
     }
 
     div.note__create_time::before {
