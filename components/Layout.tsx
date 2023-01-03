@@ -9,10 +9,10 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <div className="layout">
-      <div className="content">{children}</div>
       <div className="nav__wrapper">
         <Navbar />
       </div>
+      <div className="content">{children}</div>
     </div>
   )
 }
