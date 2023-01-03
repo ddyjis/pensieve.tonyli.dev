@@ -1,5 +1,8 @@
+import NextImage from 'next/image'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
+
+import logo from '../public/pensieve.png'
 
 export default function Navbar() {
   const router = useRouter()
@@ -10,6 +13,9 @@ export default function Navbar() {
       </NextLink>
       <NextLink href="/-/hashtags" className="navbar__item">
         Hashtags
+      </NextLink>
+      <NextLink href="/" className="navbar__item">
+        <NextImage src={logo} alt="Random note" height={32} />
       </NextLink>
       <div onClick={() => router.reload()} className="navbar__item">
         Reload
