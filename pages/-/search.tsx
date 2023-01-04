@@ -1,6 +1,7 @@
 import NextLink from 'next/link'
 import React, { useContext } from 'react'
 
+import History from '../../components/History'
 import { PensieveContext } from '../../components/PensieveContext'
 import useFetch from '../../lib/hooks/useFetch'
 import { type SearchResult as SearchResultType } from '../api/search'
@@ -29,7 +30,7 @@ const SearchResult = () => {
   const { data, isLoading, error } = useFetch<SearchResultType>(`/api/search/?q=${searchQuery}`)
 
   if (!searchQuery || searchQuery.length < 3) {
-    return null
+    return <History />
   }
   if (error) {
     console.log(error)
@@ -42,11 +43,14 @@ const SearchResult = () => {
 
   return (
     <div className="search-result">
-      {data.notes.map(({ id, value: { readableText, title } }) => (
-        <NextLink href={`/${id}`} className="search-result__item" key={id}>
-          <h1>{title}</h1>
-          <p dangerouslySetInnerHTML={{ __html: readableText }}></p>
-        </NextLink>
+      {data.notes.map(({ id, value: { readableText, title } }, index) => (
+        <>
+          <NextLink href={`/${id}`} className="search-result__item" key={id}>
+            <h1>{title}</h1>
+            <p dangerouslySetInnerHTML={{ __html: readableText }}></p>
+          </NextLink>
+          {index === data.notes.length - 1 ? null : <hr />}
+        </>
       ))}
     </div>
   )

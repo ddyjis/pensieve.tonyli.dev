@@ -22,7 +22,6 @@
 .search-result {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 
   .search-result__item {
     margin: 0.5rem;
@@ -38,5 +37,13 @@
     h1 {
       font-size: 1.5rem;
     }
+  }
+
+  hr {
+    width: 92%;
+    margin-left: auto;
+    margin-right: auto;
+
+    border: 1px solid var(--theme-primary-color-transparent);
   }
 }
