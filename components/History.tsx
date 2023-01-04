@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { Fragment, useContext } from 'react'
 
 import { type ReadableTimeDiff, timeSince } from '../lib/time'
 import HistoryEntry, { type HistoryEntryProps } from './HistoryEntry'
@@ -28,12 +28,12 @@ export default function History() {
           return null
         }
         return (
-          <React.Fragment key={since}>
+          <Fragment key={since}>
             <div className="history__since">{since}</div>
             {entries.map((entry) => (
               <HistoryEntry {...entry} key={entry.noteId} />
             ))}
-          </React.Fragment>
+          </Fragment>
         )
       })}
     </div>

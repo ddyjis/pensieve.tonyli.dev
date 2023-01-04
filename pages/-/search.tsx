@@ -1,5 +1,5 @@
 import NextLink from 'next/link'
-import React, { useContext } from 'react'
+import { Fragment, useContext } from 'react'
 
 import History from '../../components/History'
 import { PensieveContext } from '../../components/PensieveContext'
@@ -44,13 +44,13 @@ const SearchResult = () => {
   return (
     <div className="search-result">
       {data.notes.map(({ id, value: { readableText, title } }, index) => (
-        <React.Fragment key={id}>
+        <Fragment key={id}>
           <NextLink href={`/${id}`} className="search-result__item">
             <h1>{title}</h1>
             <p dangerouslySetInnerHTML={{ __html: readableText }}></p>
           </NextLink>
           {index === data.notes.length - 1 ? null : <hr />}
-        </React.Fragment>
+        </Fragment>
       ))}
     </div>
   )
