@@ -8,6 +8,7 @@ import { PensieveContext } from './PensieveContext'
 export interface HistoryEntryProps {
   noteId: NoteId
   title: string
+  timestamp: number
 }
 
 export default function HistoryEntry(entry: HistoryEntryProps) {

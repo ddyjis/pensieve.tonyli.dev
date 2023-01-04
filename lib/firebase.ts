@@ -156,6 +156,24 @@ export const getBacklinkIds = async (noteId: NoteId): Promise<LinkId[] | undefin
     return snapshot.val()
   }
 }
+export const getBacklinkDetails = async (noteId: NoteId): Promise<BacklinkDetails> => {
+  const backlinkIds = await getBacklinkIds(noteId)
+  const backlinkDetails: BacklinkDetails = {}
+  for (let linkId of backlinkIds || []) {
+    if (!backlinkDetails[linkId]) {
+      const link = await getLink(linkId)
+      if (!link) {
+        continue
+      }
+      const originNoteFrontmatter = await getFrontmatter(link.from)
+      if (!originNoteFrontmatter) {
+        continue
+      }
+      backlinkDetails[linkId] = { ...link, noteTitle: originNoteFrontmatter.title }
+    }
+  }
+  return backlinkDetails
+}
 export const getLink = async (linkId: LinkId): Promise<Link | undefined> => {
   const snapshot = await db.ref('linkIndex').get()
   if (snapshot.exists()) {
