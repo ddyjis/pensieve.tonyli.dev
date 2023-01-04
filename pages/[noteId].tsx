@@ -36,7 +36,7 @@ export default function NotePage({
   const { addHistory } = useContext(PensieveContext)
   useEffect(() => {
     if (noteId) {
-      addHistory({ noteId, title: frontmatter.title })
+      addHistory({ noteId, title: frontmatter.title, timestamp: Date.now() })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [noteId, frontmatter.title])
