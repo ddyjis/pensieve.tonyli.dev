@@ -33,7 +33,7 @@ const SearchResult = () => {
     return <History />
   }
   if (error) {
-    console.log(error)
+    console.error(error)
     return <div>Failed to load search result</div>
   }
 
