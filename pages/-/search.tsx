@@ -44,13 +44,13 @@ const SearchResult = () => {
   return (
     <div className="search-result">
       {data.notes.map(({ id, value: { readableText, title } }, index) => (
-        <>
-          <NextLink href={`/${id}`} className="search-result__item" key={id}>
+        <React.Fragment key={id}>
+          <NextLink href={`/${id}`} className="search-result__item">
             <h1>{title}</h1>
             <p dangerouslySetInnerHTML={{ __html: readableText }}></p>
           </NextLink>
           {index === data.notes.length - 1 ? null : <hr />}
-        </>
+        </React.Fragment>
       ))}
     </div>
   )
