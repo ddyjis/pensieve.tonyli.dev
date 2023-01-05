@@ -96,6 +96,8 @@ body {
 
 html {
   height: -webkit-fill-available;
+  // Prevent font scaling in landscape
+  -webkit-text-size-adjust: 100%;
 }
 
 ol,
