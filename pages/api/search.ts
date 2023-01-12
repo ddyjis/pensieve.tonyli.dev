@@ -4,7 +4,7 @@ import { type NoteId } from '../../lib/firebase'
 import { search } from '../../lib/redis'
 
 export type SearchResult = {
-  notes: { id: NoteId; value: { readableText: string; title: string } }[]
+  notes: { id: NoteId; value: { readableText: string; title: string; aliases: string } }[]
 }
 
 const handler: NextApiHandler = async (req, res) => {
